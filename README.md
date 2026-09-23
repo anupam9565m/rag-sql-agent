@@ -45,3 +45,84 @@ An enterprise-grade hybrid retrieval engine that unifies structured relational d
                                |  - Relational: customers, orders  |
                                |  - Vector: product_knowledge      |
                                +-----------------------------------+
+
+
+
+
+
+
+
+
+
+
+rag-sql-agent/
+├── app/
+│   ├── __init__.py          # Module initialization
+│   ├── config.py            # Environment validation & Pydantic settings
+│   ├── database.py          # SQLAlchemy engine & SQLDatabase initialization
+│   ├── agent.py             # ReAct Agent assembly with hybrid toolsets
+│   └── main.py              # FastAPI application server & REST endpoints
+├── scripts/
+│   └── seed_db.py           # DDL schema setup, relational seeding & vector indexing
+├── .env                     # Local environment variables (Git ignored)
+├── .gitignore               # Version control rules
+├── Dockerfile               # Python 3.11 container manifest
+├── docker-compose.yml       # Multi-container orchestration (FastAPI + pgvector)
+└── requirements.txt         # Fixed production dependencies
+
+
+Technologies & Frameworks:
+- Languages & Core: Python 3.11, SQL (PostgreSQL), REST APIs
+- Frameworks & Libraries: FastAPI, LangChain, SQLAlchemy, Pydantic, PyPDF/Unstructured
+- AI & Vector Search: OpenAI GPT-4o, OpenAI Text-Embeddings, pgvector, Vector Embeddings, ReAct Agent Architecture
+- Database & Infrastructure: PostgreSQL 16, pgvector Extension, Docker, Docker Compose, Uvicorn
+
+
+🚀 Quickstart Guide
+Prerequisites
+Docker Desktop installed and running.
+
+An OpenAI API Key.
+Step-by-step Instructions
+1. Clone the Repository
+Bash
+git clone [https://github.com/anupam9565m/rag-sql-agent.git](https://github.com/anupam9565m/rag-sql-agent.git)
+cd rag-sql-agent
+2. Configure Environment
+Create a .env file in the root directory:
+
+Bash
+# Linux / macOS
+cp .env.example .env
+
+# Windows PowerShell
+Copy-Item .env.example .env
+Edit .env and add your OpenAI API key:
+
+Ini, TOML
+OPENAI_API_KEY=sk-proj-your-actual-api-key-here
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=rag_sql_db
+POSTGRES_HOST=db
+POSTGRES_PORT=5432
+3. Spin Up Infrastructure via Docker Compose
+Build images and start containerized services:
+
+Bash
+docker-compose up --build -d
+Verify that both postgres_vector_db and rag_sql_agent_api containers are healthy:
+
+Bash
+docker-compose ps
+4. Seed Relational Data and Vector Indexes
+Run the initialization script inside the API container to create schemas, relational data, and vector embeddings:
+
+Bash
+docker exec -it rag_sql_agent_api python scripts/seed_db.py
+Git.
+
+
+
+
+
